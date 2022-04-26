@@ -4,7 +4,7 @@ import { getCategory } from "../redux/actions/categoriesActions";
 import { getProducts } from "../redux/actions/productActions";
 import {GetBrands} from "../redux/actions/categoryFilterActions"
 import CategorySlice from "../redux/Category/CategorySlice";
-import productListSlice from "../redux/Product/productListSlice";
+import productListSlice, { setItems } from "../redux/Product/productListSlice";
 import { categoryAsync } from "../redux/Category/CategoryService";
 import { categoryFilterAsync } from "../redux/Category/CategoryFilterService";
 import { productListAsync } from "../redux/Product/ProductListService";
@@ -28,10 +28,8 @@ function Brands () {
     }
   };
   useEffect(() => {
-    dispatch(productListAsync(checkedBrands));
+    let response = dispatch(productListAsync(checkedBrands));
     dispatch(categoryAsync());
-    // dispatch(GetBrands(checkedBrands,2))
-    // dispatch({ type: "changeCategoryFilter", payload: checkedBrands });
   }, [checkedBrands]);
   return (
     <div className="mb-5">
@@ -41,7 +39,7 @@ function Brands () {
     
           {CategorySlice.status=="succeeded" && productListSlice.status=="succeeded" ? (
             <>
-              {CategorySlice.items[0].map((brand) => {
+              {CategorySlice.items.map((brand) => {
               
                 const brandHasPhones = productListSlice.items.filter((phone) => {
                   if (phone.id === brand.id) {
@@ -68,7 +66,7 @@ function Brands () {
                         marginLeft: "1rem",
                       }}
                     > 
-                      {brand.name[0].toUpperCase() + brand.name.substring(1)} 
+                     {brand.name.toUpperCase()} 
                   
                     </label>
                   </li>

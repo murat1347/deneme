@@ -8,21 +8,20 @@ const initialState = {
   export const CategorySlice = createSlice({
     name: "CategorySlice",
     initialState,
-    reducers: {},
+    reducers:{ },
     extraReducers: {
     
       [categoryAsync.pending]: (state, action) => {
         state.status = "loading";
       },
       [categoryAsync.fulfilled]: (state, action) => {
-        state.items.push(action.payload);
+        state.items =action.payload;
         state.status = "succeeded";
       },
       [categoryAsync.rejected]: (state, action) => {
         state.status = "failed";
         state.error = action.error;     
       },
-      
     },
   });
   
@@ -38,5 +37,4 @@ const initialState = {
 //         : todo.completed === true
 //     );
 //   };
-//   export const { changeActiveFilter, clearCompleted } = todosSlice.actions;
   export default CategorySlice.reducer;

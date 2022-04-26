@@ -25,7 +25,6 @@ const ProductList = () => {
   let phones;
   if (state.productListSlice.items[1]) {
     phones = state.productListSlice.items.filter((phone) => {
-      console.log(state.productListSlice.items[0])
   if (state.productListSlice.items[0].id==(phone.id)) {
     return true;
 
@@ -42,8 +41,7 @@ const ProductList = () => {
   //   phones = phones.sort((a, b) => (b.price > a.price ? 1 : -1));
   // }
   const color = { color: "#1E90FF" };
-  useEffect(() => {
-  }, [dispatch,productListSlice]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const phonesPerPage = 20;
   const indexOfLastPhone = currentPage * phonesPerPage;
@@ -76,7 +74,7 @@ const ProductList = () => {
 			
 					<React.Fragment>
        
-						{productListSlice.items[0].map((item) => (
+						{productListSlice.items.map((item) => (
 							<Box w="100%" key={item.id}>
 								<Card item={item} />
 							</Box>

@@ -8,14 +8,16 @@ const initialState = {
   export const productListSlice = createSlice({
     name: "productListSlice",
     initialState,
-    reducers: {},
+    reducers: { setItems: (state,items) => {
+      state.items=items;
+    },},
     extraReducers: {
     
       [productListAsync.pending]: (state, action) => {
         state.status = "loading";
       },
       [productListAsync.fulfilled]: (state, action) => {
-        state.items.push(action.payload);
+        state.items = action.payload;
         state.status = "succeeded";
       },
       [productListAsync.rejected]: (state, action) => {
@@ -26,4 +28,5 @@ const initialState = {
     },
   });
   
+  export const { setItems } = productListSlice.actions;
   export default productListSlice.reducer;

@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/index";
 import ProtectedRoute from "./pages/ProtectedRoute";
@@ -11,29 +11,33 @@ import Profile from "./pages/Profile";
 import Basket from "./pages/Basket";
 import Admin from "./pages/Admin";
 import Error404 from "./pages/Error404";
-import Search from "./pages/Products/search";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import AddProduct from "./components/addProduct"
+import ProductList from "./components/ProductList";
+import RoleList from "./pages/Role/RoleList"
+import RoleEdit from "./pages/Role/RoleEdit";
 function App() {
 	return (
 		<Router>
 			<div>
 				<Navbar />
-
+				
 				<div id="content">
-					<Switch>
-						<Route path="/" exact component={Home} />
-					
-						<Route path="/product/:product_id" component={ProductDetail} />
-						<Route path="/signin" component={Signin} />
-						<Route path="/signup" component={Signup} />
-						<Route path="/addproduct" component={AddProduct} />
-						<Route path="/basket" component={Basket} />
-						<ProtectedRoute path="/profile" component={Profile} />
-						<ProtectedRoute path="/admin" component={Admin} admin={true} />
-						<Route path="*" component={Error404} />
-					</Switch>
+					<Routes>
+						<Route path="/" exact element={<Home />} />
+						<Route path="/?CategoryId=:CategoryId&sortBy=:sortBy&page=:page&PAGE_SIZE=:PAGE_SIZE" element={<Home />} />
+						<Route path="/product/:product_id" element={<ProductDetail />} />
+						<Route path="/signin" element={<Signin />} />
+						<Route path="/signup" element={<Signup />} />
+						<Route path="/addproduct" element={<AddProduct />} />
+						<Route path="/basket" element={<Basket />} />
+						<Route path="/profile" element={<Profile />} />
+						<Route path="/admin" element={<Admin />} admin={true} />
+						<Route path="/rolelist" element={<RoleList/>} />
+						<Route path="/roleedit" element={<RoleEdit/>} />
+						<Route path="*" element={<Error404 />} />
+					</Routes>
 				</div>
 				<Footer/>
 			</div>
